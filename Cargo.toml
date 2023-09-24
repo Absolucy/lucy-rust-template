@@ -1,0 +1,15 @@
+[package]
+name = "{{crate_name | kebab_case}}"
+version = "0.1.0"
+authors = ["{{authors}}"]
+edition = "2021"
+license = "{{license}}"
+
+[dependencies]
+{% if crate_type == "bin" -%}
+clap = { version = "4", features = ["derive"] }
+color-eyre = "0.6"
+{%- endif %}
+
+[profile.release]
+lto = "thin"

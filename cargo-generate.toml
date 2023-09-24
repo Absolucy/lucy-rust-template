@@ -1,0 +1,23 @@
+[template]
+include = ["Cargo.toml"]
+
+[placeholders]
+license = { type = "string", prompt = "Which license to use?", choices = ["Apache-2.0 OR MIT", "MPL-2.0", "0BSD"], default = "Apache-2.0 OR MIT" }
+
+[conditional.'license == "Apache-2.0 OR MIT"']
+ignore = ["LICENSE-0BSD.md", "LICENSE-MPL.md"]
+include = ["LICENSE-MIT.md"]
+
+[conditional.'license == "MPL-2.0"']
+ignore = ["LICENSE-0BSD.md", "LICENSE-Apache.md", "LICENSE-MIT.md"]
+
+[conditional.'license == "0BSD"']
+ignore = ["LICENSE-Apache.md", "LICENSE-MIT.md", "LICENSE-MPL.md"]
+
+[conditional.'crate_type == "lib"']
+ignore = ["src/main.rs"]
+include = ["src/lib.rs"]
+
+[conditional.'crate_type == "bin"']
+ignore = ["src/lib.rs"]
+include = ["src/main.rs"]
