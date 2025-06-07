@@ -1,0 +1,12 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+authors = ["{{authors}}"]
+edition = "2024"
+license = "{{license}}"
+version = "0.1.0"
+
+[workspace.lints.clippy]
+{{".template/configs/rustfmt.rhai" | rhai}}

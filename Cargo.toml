@@ -1,0 +1,21 @@
+[package]
+name = "{{crate_name}}"
+{% if layout != "workspace" -%}
+version = "0.1.0"
+edition = "2024"
+authors = ["{{authors}}"]
+{%- else -%}
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+{%- endif %}
+
+{% if layout != "workspace" -%}
+[lints.clippy]
+{{".template/configs/rustfmt.rhai" | rhai}}
+{% else -%}
+[lints]
+workspace = true
+{% endif %}
+[dependencies]
