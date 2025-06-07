@@ -3,18 +3,18 @@ include = ["Cargo.toml", "crates/*/Cargo.toml", "LICENSE*.md"]
 ignore = ["target", "Cargo.lock", "crates/*/.keepme"]
 
 [placeholders]
-layout = { type = "string", prompt = "What should the project layout be?", choices = ["lib", "bin", "workspace"], default = "bin" }
+layout = { type = "bool", prompt = "Is this a workspace (multi-crate) project?", default = false }
 license = { type = "string", prompt = "What license to use?", choices = ["MIT OR Apache-2.0", "0BSD", "MPL-2.0"], default = "0BSD" }
 
 [hooks]
 pre = [".template/hooks/01-license.rhai", ".template/hooks/02-layout.rhai"]
 post = [".template/hooks/99-cleanup.rhai"]
 
-[conditional.'layout != "workspace"']
+[conditional.'!layout']
 ignore = ["crates"]
 
-[conditional.'layout == "lib"']
+[conditional.'crate_type == "lib"']
 ignore = ["src/main.rs"]
 
-[conditional.'layout == "bin"']
+[conditional.'crate_type == "bin"']
 ignore = ["src/lib.rs"]
